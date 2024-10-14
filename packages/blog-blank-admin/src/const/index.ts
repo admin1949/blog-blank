@@ -5,4 +5,4 @@ export const RES_CODE = {
   SUCCESS: 200,
 };
 
-export const BASE_URL = "/api";
+export const BASE_URL = "/blank-api";

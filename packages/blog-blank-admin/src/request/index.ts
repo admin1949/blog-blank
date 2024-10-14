@@ -1,10 +1,10 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import { Local } from "@/storage";
-import { NO_AUTH_CODE, TOKEN_KEY } from "@/const";
+import { BASE_URL, NO_AUTH_CODE, TOKEN_KEY } from "@/const";
 import { autoLogin, shouldRetry, clearRetryHistory } from "./dev";
 
 const server = axios.create({
-  baseURL: "/blank-api",
+  baseURL: BASE_URL,
   method: "POST",
 });
 
