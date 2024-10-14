@@ -24,5 +24,5 @@ const routes: RouteRecordRaw[] = [
 
 export const router = createRouter({
   routes,
-  history: createWebHistory(),
+  history: createWebHistory("/blank"),
 });
