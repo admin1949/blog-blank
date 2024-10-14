@@ -4,7 +4,7 @@ import { NO_AUTH_CODE, TOKEN_KEY } from "@/const";
 import { autoLogin, shouldRetry, clearRetryHistory } from "./dev";
 
 const server = axios.create({
-  baseURL: "/api",
+  baseURL: "/blank-api",
   method: "POST",
 });
 

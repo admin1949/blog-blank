@@ -21,12 +21,13 @@ export default defineConfig({
     }),
     ElementPlus({}),
   ],
+  base: "/blank/",
   server: {
     proxy: {
-      "/api": {
+      "/blank-api": {
         target: "http://localhost:3000",
         rewrite(path) {
-          return path.replace(/^\/api/, "");
+          return path.replace(/^\/blank-api/, "");
         },
         ws: true,
       },
