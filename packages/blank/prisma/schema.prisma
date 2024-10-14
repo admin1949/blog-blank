@@ -1,0 +1,61 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+  // url = ""
+}
+
+model File {
+  id           Int               @id @default(autoincrement())
+  size         Int
+  fileName     String
+  extension    String
+  sortPath     String
+  createTime   DateTime
+  avatars      Project[]
+  projectFiles ProjectPicFiles[]
+}
+
+model ProjectPicFiles {
+  id        Int     @id @default(autoincrement())
+  fileId    Int
+  projectId Int
+  project   Project @relation(fields: [projectId], references: [id])
+  file      File    @relation(fields: [fileId], references: [id])
+  sort      Int     @default(0)
+
+  @@index([fileId, projectId])
+}
+
+model Project {
+  id           Int               @id @default(autoincrement())
+  sort         Int               @default(0)
+  link         String?
+  title        String
+  avatar       File              @relation(fields: [avatarFileId], references: [id])
+  avatarFileId Int
+  tags         String
+  skillTags    String
+  desc         String
+  pics         ProjectPicFiles[]
+  visible      Boolean           @default(true)
+}
+
+model Dict {
+  id         Int     @id @default(autoincrement())
+  code       String  @unique
+  name       String
+  parentCode String?
+  sort       Int     @default(0)
+  visible    Boolean @default(true)
+  desc       String?
+}

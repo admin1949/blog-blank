@@ -1,0 +1,10 @@
+node_modules
+
+dist
+.env
+.vscode
+packages/blank/prisma/migrations
+
+pnpm-lock.yaml
+pnpm-workspace.yaml
+
