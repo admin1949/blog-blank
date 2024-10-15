@@ -82,13 +82,31 @@ export class BlogController {
     return this.utilService.LIST_SUCCESS(dataList, total);
   }
 
-  @Post('edit/:id')
+  @Post('update/:id')
   async update(@Body() body: Partial<BlogBO>, @Param('id') id: string) {
     const status = await this.blogService.update(
       {
         id: Number(id),
       },
-      body,
+      {
+        ...this.utilService.pick(body, [
+          'title',
+          'desc',
+          'link',
+          'skillTags',
+          'sort',
+          'tags',
+          'visible',
+        ]),
+        avatar: body.avatarFileId
+          ? {
+              connect: {
+                id: body.avatarFileId,
+              },
+            }
+          : undefined,
+      },
+      body.picIds,
     );
     if (!status) {
       return this.utilService.ERROR(500, false);

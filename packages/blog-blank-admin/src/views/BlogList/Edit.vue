@@ -69,7 +69,7 @@
       </ElFormItem>
       <ElFormItem>
         <ElButton @click="submit" :loading="loading" type="primary"
-          >创建</ElButton
+          >保存</ElButton
         >
         <ElButton @click="cancel">取消</ElButton>
       </ElFormItem>
@@ -139,5 +139,6 @@ const { formData, cancel, submit, loading, formInstance, resetFormData } =
   useEdit({
     visible,
     onSubmit,
+    origin: computed(() => info),
   });
 </script>

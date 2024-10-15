@@ -23,7 +23,7 @@ export const queryBlogList = (
 
 export const updateBlog = (id: number, data: Partial<BlogBO>) => {
   return request<Response<boolean>>({
-    url: `/blog/edit/${id}`,
+    url: `/blog/update/${id}`,
     method: "POST",
     data,
   });

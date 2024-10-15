@@ -25,7 +25,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/blank-api": {
-        target: "http://localhost:3000",
+        target: "http://localhost:3001",
         rewrite(path) {
           return path.replace(/^\/blank-api/, "");
         },

@@ -14,6 +14,7 @@ import { FileService } from './file.service';
 import { RES } from '@/res';
 import { Public } from '@/public';
 import { createReadStream } from 'fs';
+import { FilenamePipe } from '@/filename/filename.pipe';
 
 interface Pager {
   pageNum?: number;
@@ -26,7 +27,7 @@ export class FileController {
 
   @Post('upload')
   @UseInterceptors(FileInterceptor('file'))
-  async upload(@UploadedFile() file: Express.Multer.File) {
+  async upload(@UploadedFile(FilenamePipe) file: Express.Multer.File) {
     const sortPath = await this.fileService.saveFile(file);
     const res = await this.fileService.create({
       fileName: file.originalname,

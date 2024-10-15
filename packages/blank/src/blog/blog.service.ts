@@ -54,7 +54,7 @@ export class BlogService {
   }
 
   async detail(where: Prisma.ProjectWhereUniqueInput) {
-    return this.prismaService.project.findUnique({
+    const data = await this.prismaService.project.findUnique({
       where,
       include: {
         avatar: true,
@@ -65,12 +65,35 @@ export class BlogService {
         },
       },
     });
+    if (!data) {
+      return data;
+    }
+    return {
+      ...data,
+      pics: data.pics.map((i) => i.file),
+    };
   }
 
   async update(
     where: Prisma.ProjectWhereUniqueInput,
     data: Prisma.ProjectUpdateInput,
+    picIds?: number[],
   ) {
+    if (picIds && where.id) {
+      data.pics = {
+        create: picIds.map((i, idx) => {
+          return {
+            fileId: i,
+            sort: idx,
+          };
+        }),
+      };
+      await this.prismaService.projectPicFiles.deleteMany({
+        where: {
+          projectId: where.id,
+        },
+      });
+    }
     return this.prismaService.project.update({
       where,
       data,
