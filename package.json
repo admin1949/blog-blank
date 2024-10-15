@@ -4,7 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:blank": "pnpm run -C packages/blank build",
+    "prisma:gen": "pnpm run -C packages/blank prisma:gen",
+    "prisma:push": "pnpm run -C packages/blank prisma:push",
+    "build:web": "pnpm run -C packages/blog-blank-admin build"
   },
   "keywords": [],
   "author": "",
