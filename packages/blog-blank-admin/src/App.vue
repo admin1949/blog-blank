@@ -5,7 +5,7 @@ import { useRouter } from "vue-router";
 const router = useRouter();
 
 const menus = [
-  { code: "blogs", name: "博客管理" },
+  { code: "blogs", name: "项目管理" },
   { code: "files", name: "图片管理" },
   { code: "dics", name: "字典管理" },
 ];
