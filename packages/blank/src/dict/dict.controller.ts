@@ -3,6 +3,7 @@ import { DictService } from './dict.service';
 import { Pager, PagerService } from '@/pager/pager.service';
 import { UtilService } from '@/util/util.service';
 import { Prisma } from '@prisma/client';
+import { Public } from '@/public';
 
 interface ListParams extends Pager {
   parentCode?: string;
@@ -40,6 +41,7 @@ export class DictController {
   }
 
   @Post('list-all')
+  @Public()
   async findListAll(
     @Body()
     body: {

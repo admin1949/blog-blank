@@ -4,6 +4,7 @@ import { BlogService } from './blog.service';
 import { BlogBO } from './blog.type';
 import { Pager, PagerService } from '@/pager/pager.service';
 import { Prisma } from '@prisma/client';
+import { Public } from '@/public';
 
 @Controller('blog')
 export class BlogController {
@@ -80,6 +81,45 @@ export class BlogController {
       this.blogService.findCount({ where }),
     ]);
     return this.utilService.LIST_SUCCESS(dataList, total);
+  }
+
+  @Post('list-all')
+  @Public()
+  async findListAll(
+    @Body()
+    body: {
+      content?: string;
+      ignoreVisible?: boolean;
+    },
+  ) {
+    const { content } = body;
+    const where: Prisma.ProjectWhereInput = content
+      ? {
+          OR: [
+            {
+              title: {
+                contains: content,
+              },
+            },
+            {
+              desc: {
+                contains: content,
+              },
+            },
+          ],
+        }
+      : undefined;
+
+    const dataList = await this.blogService.findMany({
+      where: {
+        ...where,
+        visible: body.ignoreVisible ? undefined : true,
+      },
+      orderBy: {
+        sort: 'desc',
+      },
+    });
+    return this.utilService.SUCCESS(dataList);
   }
 
   @Post('update/:id')
